@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 import os
 from natsort import natsorted
@@ -35,6 +36,14 @@ def combine_txt(filelist,newpath='combined.txt',root='.'):
             with open(root+'/'+fi,'r') as f: txe = [s.strip() for s in f.readlines()]
             for t in txe: tx.write(str(ti) + ', ' + t+'\n')
             ti += 1
+
+def removeline(path,lnum):
+    #line number
+    with open(path, 'r') as f: dt = f.readlines()
+
+    with open(path.replace('.txt','_remove.txt'), 'w') as f:
+        for d in range(lnum,len(dt)):
+            f.write(dt[d])
 
 def replace(path,txt,retxt):
     with open(path, 'r') as f: dt = f.readlines()
