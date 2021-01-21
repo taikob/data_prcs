@@ -53,6 +53,7 @@ def replace(path,txt,retxt):
             f.write(dt[d].replace(txt,retxt))
 
 def rename(path,txt,retxt):
+
     for dir in os.listdir(path):
         if os.path.isfile(path + '/' + dir) and '.txt' in dir:
             os.rename(path + '/' + dir,path + '/' + dir.replace(txt,retxt))
