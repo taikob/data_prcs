@@ -51,3 +51,8 @@ def replace(path,txt,retxt):
     with open(path.replace('.txt','_rep.txt'), 'w') as f:
         for d in range(len(dt)):
             f.write(dt[d].replace(txt,retxt))
+
+def rename(path,txt,retxt):
+    for dir in os.listdir(path):
+        if os.path.isfile(path + '/' + dir) and '.txt' in dir:
+            os.rename(path + '/' + dir,path + '/' + dir.replace(txt,retxt))
