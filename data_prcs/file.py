@@ -35,3 +35,10 @@ def combine_txt(filelist,newpath='combined.txt',root='.'):
             with open(root+'/'+fi,'r') as f: txe = [s.strip() for s in f.readlines()]
             for t in txe: tx.write(str(ti) + ', ' + t+'\n')
             ti += 1
+
+def replace(path,txt,retxt):
+    with open(path, 'r') as f: dt = f.readlines()
+
+    with open(path.replace('.txt','_rep.txt'), 'w') as f:
+        for d in range(len(dt)):
+            f.write(dt[d].replace(txt,retxt))
