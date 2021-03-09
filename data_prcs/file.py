@@ -3,6 +3,7 @@ import numpy as np
 import os
 from natsort import natsorted
 import get as g
+import csv
 
 def file_para(path,comtxt,title=None,paramnum=None):
     #comtxt : common text
@@ -63,3 +64,16 @@ def rename(path,txt,retxt):
     for dir in os.listdir(path):
         if os.path.isfile(path + '/' + dir) and '.txt' in dir:
             os.rename(path + '/' + dir,path + '/' + dir.replace(txt,retxt))
+
+def convert_to_plot_data(path,prmnum):
+
+    data=np.loadtxt(path)
+    prm=data[:, range(0,prmnum)]
+    newd=np.ndarray([0,prmnum+2])#newdata
+    for i,j in enumerate(range(prmnum,data.shape[1])):
+        newr=np.ndarray([data.shape[0],1])#new row
+        newr[:]=i
+        tmp =np.hstack((newr, prm, data[:,j][:, np.newaxis]))
+        newd=np.vstack((newd, tmp))
+    name=os.path.splitext(os.path.basename(path))[0]
+    np.savetxt(name + '_reshape.csv', newd, delimiter=',')
