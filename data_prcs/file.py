@@ -76,4 +76,5 @@ def convert_to_plot_data(path,prmnum):
         tmp =np.hstack((newr, prm, data[:,j][:, np.newaxis]))
         newd=np.vstack((newd, tmp))
     name=os.path.splitext(os.path.basename(path))[0]
-    np.savetxt(name + '_reshape.csv', newd, delimiter=',')
+    folder=path.replace(os.path.basename(path),'')
+    np.savetxt(folder + name + '_reshape.csv', newd, delimiter=',')
