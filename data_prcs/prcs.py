@@ -27,12 +27,13 @@ def normalization(path,uc=None,dm=','):
         np.savetxt(path.replace('.csv','_nrm.csv'), data, delimiter=',')
 
 
-def get_histogram(group, dx, up):
+def get_histogram(group, dx, up, row=0):
 
     gn = len(group)
 
     for i, stat_data in enumerate(group):
         data = np.loadtxt(stat_data)
+        if data.ndim==1:data=data[:,np.newaxis]
         pe = 1.0 / data.shape[0]
 
         if not 'dist' in locals():
@@ -42,7 +43,7 @@ def get_histogram(group, dx, up):
                 dist[j][0] = j * dx
 
         for r in range(0, data.shape[0]):
-            if data[r] < up:
+            if data[r,row] < up:
                 dist[int(math.ceil(data[r] / dx)) - 1][i + 1] += pe
             else:
                 dist[-1][i + 1] += pe
