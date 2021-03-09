@@ -28,6 +28,7 @@ def normalization(path,uc=None,dm=','):
 
 
 def get_histogram(group, dx, up):
+
     gn = len(group)
 
     for i, stat_data in enumerate(group):
