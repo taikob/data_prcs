@@ -44,7 +44,7 @@ def get_histogram(group, dx, up, row=0):
 
         for r in range(0, data.shape[0]):
             if data[r,row] < up:
-                dist[int(math.ceil(data[r] / dx)) - 1][i + 1] += pe
+                dist[int(math.ceil(data[r,row] / dx)) - 1][i + 1] += pe
             else:
                 dist[-1][i + 1] += pe
 
