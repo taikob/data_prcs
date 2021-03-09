@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import numpy as np
+import math
 
 def msr_average(path,sr=0,dm=',',uc=None,sl=0,ln=10):
     tmp = sl
@@ -24,3 +25,25 @@ def normalization(path,uc=None,dm=','):
         np.savetxt(path.replace('.txt','_nrm.txt '), data, delimiter=',')
     if '.csv' in path:
         np.savetxt(path.replace('.csv','_nrm.csv'), data, delimiter=',')
+
+
+def get_histogram(group, dx, up):
+    gn = len(group)
+
+    for i, stat_data in enumerate(group):
+        data = np.loadtxt(stat_data)
+        pe = 1.0 / data.shape[0]
+
+        if not 'dist' in locals():
+            nx = int(math.ceil(up / dx) + 1)
+            dist = np.zeros((nx, gn + 1))
+            for j in range(0, nx):
+                dist[j][0] = j * dx
+
+        for r in range(0, data.shape[0]):
+            if data[r] < up:
+                dist[int(math.ceil(data[r] / dx)) - 1][i + 1] += pe
+            else:
+                dist[-1][i + 1] += pe
+
+    return dist
