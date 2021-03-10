@@ -49,3 +49,37 @@ def get_histogram(group, dx, up, row=0):
                 dist[-1][i + 1] += pe
 
     return dist
+
+def get_2Dhistogram(group, dx, xup, dy, yup):
+
+    nx = int(math.ceil(xup / dx) + 1)
+    ny = int(math.ceil(yup / dy) + 1)
+    xrange=np.ndarray([nx,1])
+    yrange=np.ndarray([ny,1])
+    for i in range(0, nx):
+        xrange[i][0] = i * dx
+    for i in range(0, ny):
+        yrange[i][0] = i * dy
+
+    uplist=[]
+    datalist=[]
+    for i, datapath in enumerate(group):
+
+        data = np.loadtxt(datapath)
+        pe = 1.0 / data.shape[0]
+        dist = np.zeros((nx, ny))
+        xupnum=0
+        yupnum=0
+        for r in range(0, data.shape[0]):
+            if data[r,0] < xup and data[r,1] < yup:
+                print('yes')
+                dist[int(math.ceil(data[r,0] / dx)) - 1][int(math.ceil(data[r,1] / dy)) - 1] += pe
+            else:
+                if data[r,0] < xup:
+                 xupnum += pe
+                if data[r,1] < yup:
+                 yupnum += pe
+        datalist.append(dist)
+        uplist.append([datapath,xupnum,yupnum])
+
+    return xrange,yrange,uplist,datalist
