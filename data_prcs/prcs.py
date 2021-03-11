@@ -50,10 +50,10 @@ def get_histogram(group, dx, up, row=0):
 
     return dist
 
-def get_2Dhistogram(group, dx, xup, dy, yup):
+def get_2Dhistogram(group, dx, xup, xund, dy, yup, yund):
 
-    nx = int(math.ceil(xup / dx) + 1)
-    ny = int(math.ceil(yup / dy) + 1)
+    nx = int(math.ceil((xup - xund) / dx) + 1)
+    ny = int(math.ceil((yup - yund) / dy) + 1)
     xrange=np.ndarray([nx,1])
     yrange=np.ndarray([ny,1])
     for i in range(0, nx):
@@ -70,15 +70,21 @@ def get_2Dhistogram(group, dx, xup, dy, yup):
         dist = np.zeros((nx, ny))
         xupnum=0
         yupnum=0
+        xundnum=0
+        yundnum=0
         for r in range(0, data.shape[0]):
-            if data[r,0] < xup and data[r,1] < yup:
-                dist[int(math.ceil(data[r,0] / dx)) - 1][int(math.ceil(data[r,1] / dy)) - 1] += pe
+            if data[r,0] < xup and data[r,1] < yup and data[r,0] > xund and data[r,1] > yund:
+                dist[int(math.ceil((data[r,0] - xund) / dx)) - 1][int(math.ceil((data[r,1] - yund) / dy)) - 1] += pe
             else:
-                if data[r,0] < xup:
+                if data[r,0] >= xup:
                  xupnum += pe
-                if data[r,1] < yup:
+                if data[r,1] >= yup:
                  yupnum += pe
+                if data[r,0] <= xund:
+                 xundnum += pe
+                if data[r,1] <= yund:
+                 yundnum += pe
         datalist.append(dist)
-        uplist.append([datapath,xupnum,yupnum])
+        uplist.append([datapath,xupnum,xundnum,yupnum,yundnum])
 
     return xrange,yrange,uplist,datalist
