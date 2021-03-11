@@ -72,7 +72,6 @@ def get_2Dhistogram(group, dx, xup, dy, yup):
         yupnum=0
         for r in range(0, data.shape[0]):
             if data[r,0] < xup and data[r,1] < yup:
-                print('yes')
                 dist[int(math.ceil(data[r,0] / dx)) - 1][int(math.ceil(data[r,1] / dy)) - 1] += pe
             else:
                 if data[r,0] < xup:
