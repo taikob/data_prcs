@@ -78,3 +78,4 @@ def convert_to_plot_data(path,prmnum):
     name=os.path.splitext(os.path.basename(path))[0]
     folder=path.replace(os.path.basename(path),'')
     np.savetxt(folder + name + '_reshape.csv', newd, delimiter=',')
+

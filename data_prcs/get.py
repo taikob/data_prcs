@@ -2,6 +2,8 @@ import numpy as np
 import re
 import os
 from natsort import natsorted
+from datetime import datetime
+import csv
 
 def get_sysparam(data,paramrow):
 
@@ -37,3 +39,24 @@ def readtitleparam(title,sw=0):
     if sw==2: out=[float(re.findall(pattern, t)[0]) for t in title]
 
     return out
+
+def stat_data(path, statdataneme):
+
+    data = []
+
+    for savedir in natsorted(os.listdir(path)):
+        savedir = path + '/' + savedir
+
+        if os.path.exists(savedir + '/' + statdataneme):
+            datarow = readtitleparam(savedir)
+
+            with open((savedir + '/' + statdataneme), 'r') as f:
+                datarow = datarow + f.read().split()
+
+            data.append(datarow)
+
+    savepath = path + '/stat/' + str(datetime.now().strftime('%B%d  %H:%M:%S'))
+    if not os.path.exists(savepath): os.makedirs(savepath)
+    with open((savepath + '/stat_' + statdataneme.split('/')[-1]), 'w') as f:
+        writer = csv.writer(f, lineterminator='\n')
+        writer.writerows(data)

@@ -26,7 +26,6 @@ def normalization(path,uc=None,dm=','):
     if '.csv' in path:
         np.savetxt(path.replace('.csv','_nrm.csv'), data, delimiter=',')
 
-
 def get_histogram(group, dx, up, row=0):
 
     gn = len(group)
