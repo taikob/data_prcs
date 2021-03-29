@@ -48,7 +48,7 @@ def stat_data(path, statdataneme):
         savedir = path + '/' + savedir
 
         if os.path.exists(savedir + '/' + statdataneme):
-            datarow = readtitleparam(savedir)
+            datarow = readtitleparam(savedir.split('/')[-1])
 
             with open((savedir + '/' + statdataneme), 'r') as f:
                 datarow = datarow + f.read().split()
