@@ -46,7 +46,7 @@ def calc_error(data1,data2,sw=0):
             if sw==0:
                 er+=(d1[1]-line([d1[0]], data2[0], data2[1]))**2
             else:
-                er+=abs(d1[1]-line([d1[0]], data2[0], data2[1]))/d1[1]
+                er+=abs(d1[1]-line([d1[0]], data2[0], data2[1])/d1[1])
             num+=1
 
     return er/num
