@@ -50,3 +50,32 @@ def calc_error(data1,data2,sw=0):
             num+=1
 
     return er/num
+
+def dtm_coe(data1,data2):#coefficient of determination
+    #dt: data type
+        # 0 : ndarray
+        # 1 : list
+    #data1 is experment data, must be ndarray
+    #data2 is model data
+
+    if type(data1)!=np.ndarray or type(data2)!=np.ndarray:
+        print('data1 must be numpy.ndarray this type is', type(data1), type(data2))
+        sys.exit('Error')
+
+    if data2.ndim==1: dt=1
+    else: dt=0
+
+    ave=np.mean(data1[:,1])
+    er1=0
+    er2=0
+    for d1 in data1:
+        er1+=(d1[1]-ave)**2
+        if dt==0:
+            for d2 in data2:
+                if d1[0]==d2[0]:
+                    er2+=(d2[1]-ave)**2
+                    break
+        elif dt==1:
+            er2+=(line([d1[0]], data2[0], data2[1])-ave)**2
+
+    return er2/er1
