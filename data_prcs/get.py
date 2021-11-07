@@ -21,14 +21,18 @@ def get_sysparam(data,paramrow):
 
     return param,nump
 
-def readtitleparam(title,sw=0):
+def readtitleparam(title,sw=0,dl=1):
     #sw=0: str
     #sw=1: int
     #sw=2: float
 
     titleparam=[]
     title=title.split('_')
-    del title[len(title)-1]
+    if dl!=0:
+        i=0
+        while int(dl)>i:
+            del title[len(title)-1]
+            i+=1
     pattern = r'([+-]?[0-9]+\.?[0-9]*)'
 
     for t in title:
