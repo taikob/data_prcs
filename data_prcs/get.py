@@ -64,3 +64,21 @@ def stat_data(path, statdataneme):
     with open((savepath + '/stat_' + statdataneme.split('/')[-1]), 'w') as f:
         writer = csv.writer(f, lineterminator='\n')
         writer.writerows(data)
+
+
+def get_folderlist(folder):
+    follist = list()
+    for n in natsorted(os.listdir(folder)):
+        path = folder + '/' + n
+        if os.path.isdir(path):
+            follist.append(path)
+            follist = follist + get_folderlist(path)
+    return follist
+
+def chk_havedata(follist,data):
+    newlist=list()
+    for dir in follist:#folder list
+        #print(dir + '/' + data)
+        if os.path.exists(dir + '/' + data):
+            newlist.append(dir)
+    return newlist
