@@ -82,3 +82,27 @@ def chk_havedata(follist,data):
         if os.path.exists(dir + '/' + data):
             newlist.append(dir)
     return newlist
+
+import math as m
+
+def set_cnfl(allcnf):
+    nc=len(allcnf)
+    ncc=1#num of conbination
+    pl=[]#period list
+    cnfl=[]
+
+    pl.append(1)
+    for i in range(nc-1):
+        pl.append(pl[i]*len(allcnf[i]))
+
+    for cnf in allcnf:
+        ncc*=len(cnf)
+
+    for i in range(ncc):
+        cnf=[]
+        for j in range(nc):
+            cnf.append(allcnf[j][(int(m.floor(i/pl[j])))%len(allcnf[j])])
+        cnfl.append(cnf)
+
+    #print(cnfl)
+    return cnfl
