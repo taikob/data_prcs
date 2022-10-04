@@ -48,15 +48,13 @@ def stat_data(path, statdataneme,dellist=None):
 
     data = []
 
-    for dir in natsorted(g.chk_havedata(g.get_folderlist(path), statdataneme)):
+    for dir in natsorted(chk_havedata(get_folderlist(path), statdataneme)):
         dir=dir+'/'+statdataneme
         name=dir.replace('/','_')
-
         if dellist is not None:
             for s in dellist: name=name.replace(s.replace('/','_')+'_','')
 
-        para = g.readtitleparam(name)
-
+        para = readtitleparam(name)
         with open(dir, "r") as c:
             for row in csv.reader(c, delimiter=','): data.append(para+row)
 
