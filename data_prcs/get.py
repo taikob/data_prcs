@@ -44,24 +44,24 @@ def readtitleparam(title,sw=0,dl=1):
 
     return out
 
-def stat_data(path, statdataneme):
+def stat_data(path, statdataneme,dellist=None):
 
     data = []
 
-    for savedir in natsorted(os.listdir(path)):
-        savedir = path + '/' + savedir
+    for dir in natsorted(g.chk_havedata(g.get_folderlist(path), statdataneme)):
+        dir=dir+'/'+statdataneme
+        name=dir.replace('/','_')
 
-        if os.path.exists(savedir + '/' + statdataneme):
-            datarow = readtitleparam(savedir.split('/')[-1])
+        if dellist is not None:
+            for s in dellist: name=name.replace(s.replace('/','_')+'_','')
 
-            with open((savedir + '/' + statdataneme), 'r') as f:
-                datarow = datarow + f.read().split()
+        para = g.readtitleparam(name)
 
-            data.append(datarow)
+        with open(dir, "r") as c:
+            for row in csv.reader(c, delimiter=','): data.append(para+row)
 
-    savepath = path + '/stat/' + str(datetime.now().strftime('%B%d  %H:%M:%S'))
-    if not os.path.exists(savepath): os.makedirs(savepath)
-    with open((savepath + '/stat_' + statdataneme.split('/')[-1]), 'w') as f:
+
+    with open((path + '/stat_' + statdataneme.split('/')[-1]), 'w') as f:
         writer = csv.writer(f, lineterminator='\n')
         writer.writerows(data)
 
