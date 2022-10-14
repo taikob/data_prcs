@@ -76,12 +76,20 @@ def get_folderlist(folder):
 def chk_havedata(follist,data):
     newlist=list()
     for dir in follist:#folder list
-        #print(dir + '/' + data)
         if os.path.exists(dir + '/' + data):
             newlist.append(dir)
     return newlist
 
 import math as m
+
+def chk_havefilename(follist,name):
+    newlist=[]
+    for dir in follist:
+        filelist=[]
+        for file in os.listdir(dir):
+            if name in file: filelist.append(file)
+        newlist.append([dir]+filelist)
+    return newlist
 
 def set_cnfl(allcnf):
     nc=len(allcnf)
