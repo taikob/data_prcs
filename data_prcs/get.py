@@ -88,7 +88,7 @@ def chk_havefilename(follist,name):
         filelist=[]
         for file in os.listdir(dir):
             if name in file: filelist.append(file)
-        newlist.append([dir]+filelist)
+        if len(filelist)!=0: newlist.append([dir]+filelist)
     return newlist
 
 def set_cnfl(allcnf):
