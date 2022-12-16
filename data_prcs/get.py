@@ -10,14 +10,14 @@ def get_sysparam(data,paramrow):
     param=list()
     for i in paramrow:
         prm=np.empty(0)
-        for j in range(len(data)):
-            if not float(data[j][i]) in prm:
-                prm=np.append(prm,float(data[j][i]))
+        if i is not None:
+            for j in range(len(data)):
+                if not float(data[j][i]) in prm: prm=np.append(prm,float(data[j][i]))
+        else: prm=np.append(prm,0)
         param.append(np.sort(prm))
 
     nump=[]
-    for p in param:
-        nump.append(len(p))
+    for p in param: nump.append(len(p))
 
     return param,nump
 
