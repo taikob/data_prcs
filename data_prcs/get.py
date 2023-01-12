@@ -39,7 +39,7 @@ def readtitleparam(title,sw=0,dl=1):
         titleparam.append(re.sub('\\D','',t))
 
     for t in title:
-        if len(re.findall(pattern, t)):
+        if len(re.findall(pattern, t))==0:
             print('Some parameters do not contain numerical values. Please check and delete them.')
             print('all parameter is shown: ',title)
             exit()
