@@ -1,5 +1,5 @@
 import numpy as np
-import sys
+import sys, math
 from scipy import stats
 
 def line(x, a, b):
