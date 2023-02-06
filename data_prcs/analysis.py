@@ -1,5 +1,6 @@
 import numpy as np
 import sys
+from scipy import stats
 
 def line(x, a, b):
     # ax + b
@@ -79,3 +80,12 @@ def dtm_coe(data1,data2):#coefficient of determination
             er2+=(line([d1[0]], data2[0], data2[1])-ave)**2
 
     return er2/er1
+
+def get_tp_from_error(data):
+    var = np.var(data, ddof=1)
+    n=data.shape[0]
+    ave = np.mean(data)
+    t = ave/(math.sqrt(var/n))
+    p = 2*(1-stats.t.cdf(abs(t),n-1))
+
+    return t,p
