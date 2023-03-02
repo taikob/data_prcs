@@ -12,7 +12,7 @@ def get_sysparam(data,paramrow):
         prm=np.empty(0)
         if i is not None:
             for j in range(len(data)):
-                if not float(data[j][i]) in prm: prm=np.append(prm,float(data[j][i]))
+                if not np.float128(data[j][i]) in prm: prm=np.append(prm,np.float128(data[j][i]))
         else: prm=np.append(prm,0)
         param.append(np.sort(prm))
 
